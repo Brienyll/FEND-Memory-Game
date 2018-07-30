@@ -11,6 +11,16 @@
                 "fa fa-bicycle", "fa fa-bicycle",
                 "fa fa-bomb", "fa fa-bomb"];
 
+const cardsContainer = document.querySelector(".deck");
+
+// Create cards
+for (let i = 0; i < icons.length; i++) {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    cardsContainer.appendChild(card);
+}
+
+
 
 /*
  * Display the cards on the page
