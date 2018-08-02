@@ -24,10 +24,11 @@ for (let i = 0; i < icons.length; i++) {
 
     // click event
     card.addEventListener("click", function() {
+        const currentCard = this;
+        const previousCard = openedCards[0];
+
         if(openedCards.length === 1) {
 
-            const currentCard = this;
-            const previousCard = openedCards[0];
             card.classList.add("open", "show");
             openedCards.push(this);
             
@@ -41,14 +42,13 @@ for (let i = 0; i < icons.length; i++) {
                     currentCard.classList.remove("open", "show");
                     previousCard.classList.remove("open", "show");
                     openedCards.length = [];
-                }, 1500); 
+                }, 1000); 
             }
 
         } else {
-            card.classList.add("open", "show");
+            currentCard.classList.add("open", "show");
             openedCards.push(this);
         }
-        
     });
 }
 
