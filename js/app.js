@@ -13,6 +13,8 @@
 
 const cardsContainer = document.querySelector(".deck");
 
+let openedCards = [];
+
 // Create cards
 for (let i = 0; i < icons.length; i++) {
     const card = document.createElement("li");
@@ -22,7 +24,31 @@ for (let i = 0; i < icons.length; i++) {
 
     // click event
     card.addEventListener("click", function() {
-        card.classList.add("open", "show");
+        if(openedCards.length === 1) {
+
+            const currentCard = this;
+            const previousCard = openedCards[0];
+            card.classList.add("open", "show");
+            openedCards.push(this);
+            
+            // compare cards
+            if(currentCard.innerHTML === previousCard.innerHTML) {
+                currentCard.classList.add("match");
+                previousCard.classList.add("match");
+                openedCards.length = [];
+            } else {
+                setTimeout (function() {
+                    currentCard.classList.remove("open", "show");
+                    previousCard.classList.remove("open", "show");
+                    openedCards.length = [];
+                }, 1500); 
+            }
+
+        } else {
+            card.classList.add("open", "show");
+            openedCards.push(this);
+        }
+        
     });
 }
 
