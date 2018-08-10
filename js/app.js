@@ -36,12 +36,12 @@ for (let i = 0; i < icons.length; i++) {
             if(currentCard.innerHTML === previousCard.innerHTML) {
                 currentCard.classList.add("match");
                 previousCard.classList.add("match");
-                openedCards.length = [];
+                openedCards = [];
             } else {
                 setTimeout (function() {
                     currentCard.classList.remove("open", "show");
                     previousCard.classList.remove("open", "show");
-                    openedCards.length = [];
+                    openedCards = [];
                 }, 1000); 
             }
 
@@ -52,6 +52,9 @@ for (let i = 0; i < icons.length; i++) {
     });
 }
 
+function gameOver() {
+    
+}
 
 
 /*
