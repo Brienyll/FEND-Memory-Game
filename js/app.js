@@ -85,7 +85,7 @@ function score(){
         case 12:
         stars.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
             break;
-    }
+        }
 }
 
 //game over
@@ -108,8 +108,7 @@ restartButton.addEventListener("click", function(){
     cardsContainer.innerHTML = '';
 
     startGame();
-
-    moves = 0;
+    movesContainer.innerHTML = '0';
     matchedCards = [];
     openedCards = [];
 
