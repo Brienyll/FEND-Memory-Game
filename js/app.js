@@ -17,48 +17,78 @@ let openedCards = [];
 let matchedCards = [];
 
 // Create cards
+function startGame() {
 for (let i = 0; i < icons.length; i++) {
     const card = document.createElement("li");
     card.classList.add("card");
     card.innerHTML = `<i class="${icons[i]}"></i>`;
     cardsContainer.appendChild(card);
 
-    // click event
-    card.addEventListener("click", function() {
-        const currentCard = this;
-        const previousCard = openedCards[0];
-
-        if(openedCards.length === 1) {
-
-            card.classList.add("open", "show");
-            openedCards.push(this);
-            
-            // compare cards
-            if(currentCard.innerHTML === previousCard.innerHTML) {
-                currentCard.classList.add("match");
-                previousCard.classList.add("match");
-                matchedCards.push(currentCard, previousCard);
-                openedCards = [];
-                gameOver();
-            } else {
-                
-                
-                
-                setTimeout (function() {
-                    currentCard.classList.remove("open", "show", "disable");
-                    previousCard.classList.remove("open", "show", "disable");
-                    
-                }, 700);
-
-                openedCards = [];
-            }
-
-        } else {
-            currentCard.classList.add("open", "show", "disable");
-            openedCards.push(this);
-        }
-    });
+    click(card);
+    }
 }
+// click event
+function click(card) {
+card.addEventListener("click", function() {
+    const currentCard = this;
+    const previousCard = openedCards[0];
+
+    if(openedCards.length === 1) {
+
+        card.classList.add("open", "show");
+        openedCards.push(this);
+        
+        // compare cards
+        if(currentCard.innerHTML === previousCard.innerHTML) {
+            currentCard.classList.add("match");
+            previousCard.classList.add("match");
+            matchedCards.push(currentCard, previousCard);
+            openedCards = [];
+            addMove();
+            gameOver();
+        } else {
+            
+            
+            
+            setTimeout (function() {
+                currentCard.classList.remove("open", "show", "disable");
+                previousCard.classList.remove("open", "show", "disable");
+            }, 700);
+
+            openedCards = [];
+            addMove();
+        }
+
+    } else {
+        currentCard.classList.add("open", "show", "disable");
+        openedCards.push(this);
+    }
+});
+}
+const movesContainer = document.querySelector(".moves");
+let moves = 0;
+
+function addMove(){
+    moves++;
+    movesContainer.innerHTML = moves;
+    score();
+}
+
+const stars = document.querySelector(".stars");
+const star = document.querySelector("fa-star");
+
+function score(){
+    switch(moves) {
+        case 16:
+            stars.innerHTML = `<li><i class="fa fa-star"></i></li>`;
+            break;
+        case 12:
+        stars.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
+            break;
+    }
+}
+
+//game over
 
 function gameOver() {
     if (matchedCards.length === icons.length) {
@@ -67,6 +97,23 @@ function gameOver() {
         }, 400);
     }
 }
+
+startGame();
+
+// restart
+
+const restartButton = document.querySelector(".restart");
+restartButton.addEventListener("click", function(){
+
+    cardsContainer.innerHTML = '';
+
+    startGame();
+
+    moves = 0;
+    matchedCards = [];
+    openedCards = [];
+
+});
 
 
 /*
