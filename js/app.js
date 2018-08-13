@@ -14,6 +14,7 @@
 const cardsContainer = document.querySelector(".deck");
 
 let openedCards = [];
+let matchedCards = [];
 
 // Create cards
 for (let i = 0; i < icons.length; i++) {
@@ -36,24 +37,35 @@ for (let i = 0; i < icons.length; i++) {
             if(currentCard.innerHTML === previousCard.innerHTML) {
                 currentCard.classList.add("match");
                 previousCard.classList.add("match");
+                matchedCards.push(currentCard, previousCard);
                 openedCards = [];
+                gameOver();
             } else {
+                
+                
+                
                 setTimeout (function() {
-                    currentCard.classList.remove("open", "show");
-                    previousCard.classList.remove("open", "show");
-                    openedCards = [];
-                }, 1000); 
+                    currentCard.classList.remove("open", "show", "disable");
+                    previousCard.classList.remove("open", "show", "disable");
+                    
+                }, 700);
+
+                openedCards = [];
             }
 
         } else {
-            currentCard.classList.add("open", "show");
+            currentCard.classList.add("open", "show", "disable");
             openedCards.push(this);
         }
     });
 }
 
 function gameOver() {
-    
+    if (matchedCards.length === icons.length) {
+        setTimeout(function () {
+            alert("Game Over!")
+        }, 400);
+    }
 }
 
 
