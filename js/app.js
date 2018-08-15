@@ -15,9 +15,13 @@ const cardsContainer = document.querySelector(".deck");
 
 let openedCards = [];
 let matchedCards = [];
+let time = 0;
+let clockOn = false;
+let timerId;
 
 // Create cards
 function startGame() {
+    startTimer();
 for (let i = 0; i < icons.length; i++) {
     const card = document.createElement("li");
     card.classList.add("card");
@@ -30,6 +34,7 @@ for (let i = 0; i < icons.length; i++) {
 // click event
 function click(card) {
 card.addEventListener("click", function() {
+    const clickTarget = event.target;
     const currentCard = this;
     const previousCard = openedCards[0];
 
@@ -48,8 +53,6 @@ card.addEventListener("click", function() {
             gameOver();
         } else {
             
-            
-            
             setTimeout (function() {
                 currentCard.classList.remove("open", "show", "disable");
                 previousCard.classList.remove("open", "show", "disable");
@@ -65,11 +68,12 @@ card.addEventListener("click", function() {
     }
 });
 }
-const movesContainer = document.querySelector(".moves");
+
 let moves = 0;
 
 function addMove(){
     moves++;
+    const movesContainer = document.querySelector(".moves");
     movesContainer.innerHTML = moves;
     score();
 }
@@ -120,15 +124,36 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 
+function displayTime() {
+    const clock = document.querySelector(".timer");
+    clock.innerHTML = time;
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    if (seconds < 10) {
+        clock.innerHTML = `${minutes}:0${seconds}`;
+    } else {
+        clock.innerHTML = `${minutes}:${seconds}`;
+    }
+}
+
+function startTimer() {
+    timerId = setInterval(() => {
+        time++;
+        displayTime();
+        console.log(time);
+    }, 1000);
+}
+
+function stopClock(){
+    clearInterval(timerId);
+}
 
 
 startGame();
 shuffleDeck();
-
 
 // restart
 
@@ -151,8 +176,6 @@ restartButton.addEventListener("click", function(){
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
