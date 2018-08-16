@@ -12,28 +12,29 @@
                 "fa fa-bomb", "fa fa-bomb"];
 
 const cardsContainer = document.querySelector(".deck");
+const movesContainer = document.querySelector(".moves");
+const stars = document.querySelector(".stars");
 
 let openedCards = [];
 let matchedCards = [];
+let moves = 0;
 let time = 0;
-let clockOn = false;
 let timerId;
 
-// Create cards
+// start and create cards
 function startGame() {
-    startTimer();
-for (let i = 0; i < icons.length; i++) {
+    for (let i = 0; i < icons.length; i++) {
     const card = document.createElement("li");
     card.classList.add("card");
     card.innerHTML = `<i class="${icons[i]}"></i>`;
     cardsContainer.appendChild(card);
-
     click(card);
     }
 }
-// click event
+
+// click card event
 function click(card) {
-card.addEventListener("click", function() {
+    card.addEventListener("click", function() {
     const clickTarget = event.target;
     const currentCard = this;
     const previousCard = openedCards[0];
@@ -69,8 +70,7 @@ card.addEventListener("click", function() {
 });
 }
 
-let moves = 0;
-
+// add move counter
 function addMove(){
     moves++;
     const movesContainer = document.querySelector(".moves");
@@ -78,34 +78,43 @@ function addMove(){
     score();
 }
 
-const stars = document.querySelector(".stars");
-const star = document.querySelector("fa-star");
-
+// show Stars
 function score(){
+    const star = document.querySelector("fa-star");
     switch(moves) {
         case 16:
             stars.innerHTML = `<li><i class="fa fa-star"></i></li>`;
             break;
         case 12:
-        stars.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
+            stars.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
             break;
         }
 }
 
-//game over
+function getStars() {
+    nStars = document.querySelectorAll(".stars li");
+    let starCount = 0;
+    for (star of nStars) {
+        if (star.style.display !== "none") {
+            starCount++;
+        }
+    }
+    return starCount;
+}
 
+//game over
 function gameOver() {
     if (matchedCards.length === icons.length) {
         setTimeout(function () {
-            alert("Game Over!")
+            toggleModal();
         }, 400);
+        stopTimer();
     }
 }
 
-// shuffling
-const deck = document.querySelector(".deck");
-
+// Shuffle Deck
 function shuffleDeck() {
+    const deck = document.querySelector(".deck");
     const cardsToShuffle = Array.from(document.querySelectorAll(".deck li"));
     const shuffledCards = shuffle(cardsToShuffle);
     for (card of shuffledCards) {
@@ -127,6 +136,7 @@ function shuffle(array) {
     return array;
 }
 
+// Display Time
 function displayTime() {
     const clock = document.querySelector(".timer");
     clock.innerHTML = time;
@@ -139,35 +149,78 @@ function displayTime() {
     }
 }
 
+// Start Timer
 function startTimer() {
     timerId = setInterval(() => {
         time++;
         displayTime();
-        console.log(time);
     }, 1000);
 }
 
-function stopClock(){
+// Stop Timer
+function stopTimer(){
     clearInterval(timerId);
+    time = -1;
 }
 
+function toggleModal() {
+    const modal = document.querySelector(".modal-bg");
+    modal.classList.toggle("hide");
+    modalStats();
+}
 
-startGame();
-shuffleDeck();
+function modalStats() {
+    const timeStat = document.querySelector(".modalTime");
+    const clockTime = document.querySelector(".timer").innerHTML;
+    const moveStat = document.querySelector(".modalMoves");
+    const getMoves = document.querySelector(".moves").innerHTML;
+    const starStat = document.querySelector(".modalStars");
+    const stars = getStars();
+    
 
+    timeStat.innerHTML = `Time = ${clockTime}`;
+    moveStat.innerHTML = `Moves = ${getMoves}`;
+    starStat.innerHTML = `Stars = ${stars}`;
+
+}
 // restart
-
 const restartButton = document.querySelector(".restart");
 restartButton.addEventListener("click", function(){
-
     cardsContainer.innerHTML = '';
-
+    stars.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
+    stopTimer();
     startGame();
+    startTimer();
+    shuffleDeck();
+    moves = 0;
     movesContainer.innerHTML = '0';
     matchedCards = [];
-    openedCards = [];
-
 });
+
+
+document.querySelector(".cancel").addEventListener("click", () => {
+    toggleModal();
+});
+
+document.querySelector(".replay").addEventListener("click", () => {
+    cardsContainer.innerHTML = '';
+    stars.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
+    stopTimer();
+    startGame();
+    startTimer();
+    shuffleDeck();
+    moves = 0;
+    movesContainer.innerHTML = '0';
+    matchedCards = [];
+    toggleModal();
+});
+
+
+toggleModal();
+toggleModal();
+startGame();
+shuffleDeck();
+startTimer();
 
 
 /*
