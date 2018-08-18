@@ -8,6 +8,11 @@
 
 ![ScreenShot](https://github.com/Brienyll/FEND-Memory-Game/blob/master/Screen-Shot-MG.png)
 
+## Dependencies
+
+* Bootstrap CDN
+* Font Awesome 
+* Gogle Fonts API
 
 ## Release History
 
