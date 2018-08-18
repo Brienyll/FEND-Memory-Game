@@ -1,20 +1,28 @@
 # Memory Game Project
 
-## Table of Contents
+# Product Name
+ Test your memory by matching different Icons.
+ 
+ The less moves you make, the more stars you can get. The game ends when you match all cards. Good Luck!
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
 
-## Instructions
+![ScreenShot](https://github.com/Brienyll/FEND-Memory-Game/blob/master/Screen-Shot-MG.png)
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Release History
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+* 0.1.0
+    * The first proper release
+## Meta
+
+Your Name – [@br1xxx](https://twitter.com/br1xxx) – brix.angeles@gmail.com
+
+[https://github.com/Brienyll/FEND-Memory-Game](https://github.com/Brienyll/)
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+1. Fork it (<https://github.com/Brienyll/FEND-Memory-Game/fork>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
